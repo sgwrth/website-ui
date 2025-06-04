@@ -18,10 +18,11 @@ async function login() {
 			body: {
 				email: inputData.value.email,
 				password: inputData.value.password,
-			}
+			},
 		})
-		store.name = email.value	
+		store.email = response.email
 		store.token = response.token
+		store.username = response.username
 	} catch (error) {
 		loginFailed.value = true
 		const errorStatus = error?.response?.status ?? 500
@@ -42,7 +43,7 @@ function resetCredentials() {
 
 <template>
 	<!-- not logged in -->
-	<div v-if="store.name === ''">
+	<div v-if="store.username === ''">
 		<h1>log in</h1>
 		<label for="email">email</label><br />
 		<input v-model="inputData.email" id="email" type="text"><br />
@@ -58,6 +59,6 @@ function resetCredentials() {
 	<!-- login successful -->
 	<div v-else>
 		<h1>logged in!</h1>
-		<div>welcome, {{ store.name }}!</div>
+		<div>welcome, {{ store.username }}!</div>
 	</div>
 </template>

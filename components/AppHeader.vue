@@ -1,20 +1,21 @@
 <script setup lang="ts">
 const store = useUserStore()
 function logout() {
-	store.name = ''
+	store.username = ''
 	store.token = ''
+	store.email = ''
 }
 </script>
 
 <template>
-	<h1>le header</h1>
+	<h1>andreassiegwarth.de</h1>
 	<div class="grid">
 		<div class="cell"><NuxtLink to="/">home</NuxtLink></div>
 		<div class="cell"><NuxtLink to="/posts">posts</NuxtLink></div>
 
 		<!-- logged in -->
-		<template v-if="store.name !== ''">
-			<div class="cell">hi there, {{ store.name }}</div>
+		<template v-if="store.username !== ''">
+			<div class="cell">hi there, {{ store.username }}</div>
 			<div class="cell"><NuxtLink to="/login" v-on:click="logout">logout</NuxtLink></div>
 		</template>
 
