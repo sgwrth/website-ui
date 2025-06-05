@@ -20,8 +20,11 @@ onMounted(async () => {
 			<NuxtLink to="/create-post">CREATE POST</NuxtLink>
 		</div>
 		<div v-for="post in posts" :key="post.id">
-			<div class="title">title: {{ post.title }}</div>
-			<div class="text">text: {{ post.text }}</div>
+			<div class="title">
+				<span>{{ post.created }} | <strong>{{ post.title }}</strong></span>
+				<span>by {{ post.author}} [{{ post.author_email}}]</span>
+			</div>
+			<div class="text">{{ post.text }}</div>
 		</div>
 	</div>
 	<!-- not logged in -->
@@ -46,6 +49,8 @@ onMounted(async () => {
 }
 
 .title {
+	display: flex;
+	justify-content: space-between;
 	background-color: #707070;
 	padding: 0.5rem;
 }
