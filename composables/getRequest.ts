@@ -1,8 +1,8 @@
 const runtimeConfig = useRuntimeConfig()
 const store = useUserStore()
 
-export const getRequest = (path) => {
-	return async (path) => {
+export const getRequest = () => {
+	return async (path: string) => {
 		const response = await $fetch(`${runtimeConfig.public.backendUrl}/${path}`, {
 			method: 'GET',
 			headers: {

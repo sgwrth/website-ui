@@ -15,8 +15,6 @@ async function submitPost() {
 		body: {
 			title: postData.value.title,
 			text: postData.value.text,
-			appUser: store.username,
-			
 		}
 	})
 }

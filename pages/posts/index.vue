@@ -8,7 +8,7 @@ function isLoggedIn() {
 }
 
 onMounted(async () => {
- 	posts.value = await get('post')
+ 	posts.value = await get('posts')
 })
 </script>
 
@@ -17,12 +17,13 @@ onMounted(async () => {
 	<h1 class="header">les posts</h1>
 	<div v-if="isLoggedIn()">
 		<div class="menu">
-			<NuxtLink to="/create-post">CREATE POST</NuxtLink>
+			<NuxtLink to="/posts/create-post">CREATE POST</NuxtLink>
 		</div>
 		<div v-for="post in posts" :key="post.id">
 			<div class="title">
-				<span>{{ post.created }} | <strong>{{ post.title }}</strong></span>
-				<span>by {{ post.author}} [{{ post.author_email}}]</span>
+					<span>#{{ post.id }} | {{ post.created }} | {{ post.title }}
+						| [<NuxtLink :to="`/posts/edit/${post.id}`">Edit</NuxtLink>]</span>
+				<span>by {{ post.author}} [{{ post.authorEmail}}]</span>
 			</div>
 			<div class="text">{{ post.text }}</div>
 		</div>
@@ -53,11 +54,15 @@ onMounted(async () => {
 	justify-content: space-between;
 	background-color: #707070;
 	padding: 0.5rem;
+	border-top: solid 0.15rem #000000;
+	border-left: solid 0.15rem #000000;
+	border-right: solid 0.15rem #000000;
 }
 
 .text {
 	background-color: #a0a0a0;
 	padding: 0.5rem;
 	margin-bottom: 1.5rem;
+	border: solid 0.15rem #000000;
 }
 </style>
