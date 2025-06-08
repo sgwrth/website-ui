@@ -1,4 +1,7 @@
 <template>
-  <AppHeader />
-  <NuxtPage />
+	<AppHeader />
+	<NuxtPage />
 </template>
+
+<style scoped>
+</style>

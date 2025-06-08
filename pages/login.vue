@@ -42,7 +42,7 @@ function resetCredentials() {
 </script>
 
 <template>
-	<!-- not logged in -->
+<div class="main">	<!-- not logged in -->
 	<div v-if="store.username === ''">
 		<h1>log in</h1>
 		<label for="email">email</label><br />
@@ -61,4 +61,8 @@ function resetCredentials() {
 		<h1>logged in!</h1>
 		<div>welcome, {{ store.username }}!</div>
 	</div>
+</div>
 </template>
+
+<style scoped>
+</style>
