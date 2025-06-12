@@ -5,11 +5,13 @@ function logout() {
 	store.username = ''
 	store.token = ''
 	store.email = ''
+	store.role = ''
 }
 </script>
 
 <template>
-	<div class="main">
+	<div>
+		<div><img class="responsive-img" src="../assets/png/homepage.png" /></div>
 		<div class="grid">
 			<div class="cell"><NuxtLink to="/">Home</NuxtLink></div>
 			<div class="cell"><NuxtLink to="/posts">Posts</NuxtLink></div>
@@ -23,7 +25,7 @@ function logout() {
 			<!-- not logged in -->
 			<template v-else>
 				<div class="cell">Howdy, stranger</div>
-				<div class="cell"><NuxtLink to="/login">Log in</NuxtLink></div>
+				<div class="cell"><NuxtLink to="/login">Login</NuxtLink></div>
 			</template>
 		</div>
 	</div>
@@ -32,10 +34,19 @@ function logout() {
 <style scoped>
 .cell {
 	text-align: center;
+	vertical-align: bottom;
 }
 .grid {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	grid-template-rows: 1fr;
+}
+.responsive-img {
+	width: 100%;
+	height: auto;
 }
 </style>

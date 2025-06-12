@@ -27,7 +27,10 @@ onMounted(async () => {
 			</div>
 		</div>
 		<!-- not logged in -->
-		<div v-else>Log in to see poasts</div>
+		<div v-else>
+			<div class="paragraph"><NuxtLink to="/login">Log in</NuxtLink> to see poasts.</div>
+			<div>No account? Try guest/guest.</div>
+		</div>
 	</div>
 </template>
 

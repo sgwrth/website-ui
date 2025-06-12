@@ -2,10 +2,15 @@
 const runtimeConfig = useRuntimeConfig()
 const store = useUserStore()
 const route = useRoute().params
-const putData = ref({
+const putData: Ref<Post> = ref({
 	title: '',
 	text: '',
 })
+
+interface Post {
+	title: '',
+	text: '',
+}
 
 async function editPost() {
 	const response = await $fetch(`${runtimeConfig.public.backendUrl}/posts/${route.id}`, {
@@ -21,7 +26,7 @@ async function editPost() {
 }
 
 onMounted(async () => {
-	const response = await $fetch(`${runtimeConfig.public.backendUrl}/posts/${route.id}`, {
+	const response: Post[] = await $fetch(`${runtimeConfig.public.backendUrl}/posts/${route.id}`, {
 		method: 'GET',
 		headers: {
 			Authorization: `Bearer ${store.token}`,
@@ -33,16 +38,14 @@ onMounted(async () => {
 </script>
 
 <template>
-<div>
+	<div class="main">
 		<h1>edit your post #{{route.id}}</h1>
-</div>
-<div>
-	<label for="title">title</label><br />
-	<input v-model="putData.title" id="title" type="text" placeholder="title" /><br />
-	<label for="text">text</label><br />
-	<textarea v-model="putData.text" id="text" placeholder="go ahead, Shakespeare" /><br />
-	<button v-on:click="editPost">send</button>
-</div>
+		<label for="title">title</label><br />
+		<input v-model="putData.title" id="title" type="text" /><br />
+		<label for="text">text</label><br />
+		<textarea v-model="putData.text" id="text" /><br />
+		<button v-on:click="editPost">send</button>
+	</div>
 </template>
 
 <style scoped>

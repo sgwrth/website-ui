@@ -11,9 +11,17 @@ const loginErrorData = ref({
 	message: '',
 })
 
+interface LoginReponse {
+	message: string
+	email: string
+	token: string
+	username: string
+	role: string
+}
+
 async function login() {
 	try {
-		const response = await $fetch(`${runtimeConfig.public.backendUrl}/login`, {
+		const response: LoginReponse = await $fetch(`${runtimeConfig.public.backendUrl}/login`, {
 			method: 'POST',
 			body: {
 				email: inputData.value.email,
@@ -23,6 +31,7 @@ async function login() {
 		store.email = response.email
 		store.token = response.token
 		store.username = response.username
+		store.role = response.role
 	} catch (error) {
 		loginFailed.value = true
 		const errorStatus = error?.response?.status ?? 500
@@ -42,26 +51,26 @@ function resetCredentials() {
 </script>
 
 <template>
-<div class="main">	<!-- not logged in -->
-	<div v-if="store.username === ''">
-		<h1>log in</h1>
-		<label for="email">email</label><br />
-		<input v-model="inputData.email" id="email" type="text"><br />
-		<label for="password">password</label><br />
-		<input v-model="inputData.password" id="password" type="password"><br />
-		<button v-on:click="login">log in</button>
-		<!-- login failed -->
-		<div v-if="loginFailed">
-			<div>error code:{{ loginErrorData.status }}</div>
-			<div>{{ loginErrorData.message}}</div>
+	<div class="main">	<!-- not logged in -->
+		<div v-if="store.username === ''">
+			<h1>Login</h1>
+			<div class="label"><label for="email">E-mail</label></div>
+			<div class="input"><input v-model="inputData.email" id="email" type="text"></div>
+			<div class="label"><label for="password">Password</label><br /></div>
+			<div class="input"><input v-model="inputData.password" id="password" type="password"></div>
+			<button v-on:click="login">LFG</button>
+			<!-- login failed -->
+			<div v-if="loginFailed">
+				<div>error code:{{ loginErrorData.status }}</div>
+				<div>{{ loginErrorData.message}}</div>
+			</div>
+		</div>
+		<!-- login successful -->
+		<div v-else>
+			<h1>Great login success!</h1>
+			<div>Welcome, {{ store.username }}!</div>
 		</div>
 	</div>
-	<!-- login successful -->
-	<div v-else>
-		<h1>logged in!</h1>
-		<div>welcome, {{ store.username }}!</div>
-	</div>
-</div>
 </template>
 
 <style scoped>
