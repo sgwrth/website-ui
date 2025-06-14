@@ -18,12 +18,17 @@ onMounted(async () => {
 		<div v-if="isLoggedIn()">
 			<div class="menu"><NuxtLink to="/posts/create-post">Create Post</NuxtLink></div>
 			<div v-for="post in posts" :key="post.id">
-				<div class="title font-s"><NuxtLink :to="`/posts/show/${post.id}`">
+				<div class="title font-s">
 					<span>#{{ post.id }} | {{ post.created }} | {{ post.title }}
 						| [<NuxtLink :to="`/posts/edit/${post.id}`">Edit</NuxtLink>]</span>
 					<span>by {{ post.author}} [{{ post.authorEmail}}]</span>
-				</NuxtLink></div>
-				<div class="text">{{ post.text }}</div>
+									</div>
+				<div class="text">
+					{{ post.text }}
+					<div class="font-s mt-m">
+						<NuxtLink :to="`/posts/show/${post.id}`">Read full post</NuxtLink>
+					</div>
+				</div>
 			</div>
 		</div>
 		<!-- not logged in -->
@@ -37,6 +42,10 @@ onMounted(async () => {
 <style scoped>
 .menu {
 	margin-bottom: 1.0rem;
+}
+
+.mt-m {
+	margin-top: 1.0rem;
 }
 
 .title {

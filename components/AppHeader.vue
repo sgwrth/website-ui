@@ -39,8 +39,7 @@ function logout() {
 .grid {
 	position: absolute;
 	top: 0;
-	left: 0;
-	/* width: 100%; */
+	width: 100%;
 	margin: 0 auto;
 	max-width: 1000px;
 	display: grid;
