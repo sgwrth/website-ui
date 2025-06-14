@@ -10,7 +10,7 @@ function logout() {
 </script>
 
 <template>
-	<div>
+	<div class="main">
 		<div><img class="responsive-img" src="../assets/png/homepage.png" /></div>
 		<div class="grid">
 			<div class="cell"><NuxtLink to="/">Home</NuxtLink></div>
@@ -40,7 +40,9 @@ function logout() {
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 100%;
+	/* width: 100%; */
+	margin: 0 auto;
+	max-width: 1000px;
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	grid-template-rows: 1fr;
