@@ -11,6 +11,7 @@ a {
 }
 a:hover {
 	color: #d0a0a0;
+	cursor: pointer;
 }
 body {
 	background-color: #10050a;
@@ -57,6 +58,11 @@ textarea {
 .label {
 	margin-bottom: 0.5rem;
 }
+/*
+.mb-m {
+	margin-bottom: 1.0rem;
+}
+*/
 .main {
 	padding: 0.0rem;
 	padding-left: 1.0rem;

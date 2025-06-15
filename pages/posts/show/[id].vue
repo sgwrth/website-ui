@@ -2,30 +2,52 @@
 const runtimeConfig = useRuntimeConfig()
 const store = useUserStore()
 const route = useRoute().params
+const requestHasFailed: Ref<boolean> = ref(false);
 const post: Ref<Post> = ref({
 	title: '',
 	text: '',
+	author: '',
+	authorEmail: '',
+	created: '',
+	updated: '',
 })
 
 interface Post {
 	title: '',
 	text: '',
+	author: '',
+	authorEmail: '',
+	created: '',
+	updated: '',
 }
 
 onMounted(async () => {
-	const response: Post[] = await $fetch(`${runtimeConfig.public.backendUrl}/posts/${route.id}`, {
-		method: 'GET',
-		headers: {
-			Authorization: `Bearer ${store.token}`,
-		},
-	})
-	post.value.title = response[0].title
-	post.value.text = response[0].text
+	try {
+		const response: Post[] = await $fetch(`${runtimeConfig.public.backendUrl}/posts/${route.id}`, {
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${store.token}`,
+			},
+		})
+		post.value.title = response[0].title
+		post.value.text = response[0].text
+		post.value.author = response[0].author
+		post.value.authorEmail = response[0].authorEmail
+		post.value.created = response[0].created
+		post.value.updated = response[0].updated
+	} catch (error) {
+		console.error(error);
+		requestHasFailed.value = true;
+	}
+
 });
 </script>
 
 <template>
-	<div class="main">
+	<div v-if="requestHasFailed" class="main">
+		<ErrorPage />
+	</div>
+	<div v-else class="main">
 		<h1 class="header">selected post</h1>
 		<div class="title font-s">
 			<span>#{{ post.id }} | {{ post.created }} | {{ post.title }}

@@ -8,7 +8,7 @@ function isLoggedIn() {
 }
 
 onMounted(async () => {
- 	posts.value = await get('posts')
+	posts.value = await get('posts')
 })
 </script>
 
@@ -43,11 +43,9 @@ onMounted(async () => {
 .menu {
 	margin-bottom: 1.0rem;
 }
-
 .mt-m {
 	margin-top: 1.0rem;
 }
-
 .title {
 	display: flex;
 	justify-content: space-between;
@@ -57,7 +55,6 @@ onMounted(async () => {
 	border-left: solid 0.15rem #000000;
 	border-right: solid 0.15rem #000000;
 }
-
 .text {
 	background-color: #30252a;
 	padding: 0.5rem;

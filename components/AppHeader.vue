@@ -11,7 +11,7 @@ function logout() {
 
 <template>
 	<div class="main">
-		<div><img class="responsive-img" src="../assets/png/homepage.png" /></div>
+		<div><img class="responsive-img" src="../assets/jpg/homepage3.jpg" /></div>
 		<div class="grid">
 			<div class="cell"><NuxtLink to="/">Home</NuxtLink></div>
 			<div class="cell"><NuxtLink to="/posts">Posts</NuxtLink></div>
@@ -38,7 +38,7 @@ function logout() {
 }
 .grid {
 	position: absolute;
-	top: 0;
+	top: 0.5rem;
 	width: 100%;
 	margin: 0 auto;
 	max-width: 1000px;
