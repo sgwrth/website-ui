@@ -18,7 +18,7 @@ function logout() {
 
 			<!-- logged in -->
 			<template v-if="store.username !== ''">
-				<div class="cell">Hi there, {{ store.username }}</div>
+				<div class="cell">Hi there, <NuxtLink to="/user">{{ store.username }}</NuxtLink></div>
 				<div class="cell"><NuxtLink to="/login" v-on:click="logout">Logout</NuxtLink></div>
 			</template>
 
