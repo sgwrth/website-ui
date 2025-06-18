@@ -58,7 +58,7 @@ function resetCredentials() {
 			<div class="input"><input v-model="inputData.email" id="email" type="text"></div>
 			<div class="label"><label for="password">Password</label><br /></div>
 			<div class="input"><input v-model="inputData.password" id="password" type="password"></div>
-			<button v-on:click="login">LFG</button>
+			<button v-on:click="login">LFG!</button>
 			<!-- login failed -->
 			<div v-if="loginFailed">
 				<div>error code:{{ loginErrorData.status }}</div>

@@ -15,16 +15,17 @@ function logout() {
 		<div class="grid">
 			<div class="cell"><NuxtLink to="/">Home</NuxtLink></div>
 			<div class="cell"><NuxtLink to="/posts">Posts</NuxtLink></div>
+			<div class="cell"><NuxtLink to="/links">Links</NuxtLink></div>
 
 			<!-- logged in -->
 			<template v-if="store.username !== ''">
-				<div class="cell">Hi there, <NuxtLink to="/user">{{ store.username }}</NuxtLink></div>
-				<div class="cell"><NuxtLink to="/login" v-on:click="logout">Logout</NuxtLink></div>
+				<div class="cell">
+					<NuxtLink to="/user">{{ store.username }}</NuxtLink>&nbsp;<NuxtLink to="/login" v-on:click="logout">[x]</NuxtLink>
+				</div>
 			</template>
 
 			<!-- not logged in -->
 			<template v-else>
-				<div class="cell">Howdy, stranger</div>
 				<div class="cell"><NuxtLink to="/login">Login</NuxtLink></div>
 			</template>
 		</div>
