@@ -2,6 +2,7 @@
 const store = useUserStore()
 const getUser = getRequest()
 const runtimeConfig = useRuntimeConfig()
+const userDataLoaded: Ref<boolean> = ref(false)
 const user: Ref<User> = ref({
 	username: '',
 	email: '',
@@ -58,13 +59,15 @@ onMounted(async () => {
 	user.value.role = response[0].role
 	user.value.created = response[0].created
 	user.value.updated = response[0].updated
+	userDataLoaded.value = true
 })
 </script>
 
 <template>
 	<div class="main">
 		<h1>User</h1>
-		<table>
+		<div v-if="userDataLoaded == false">Loading ...</div>
+		<table v-else>
 			<tbody>
 				<tr>
 					<td>Username:</td>

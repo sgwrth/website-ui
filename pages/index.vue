@@ -33,15 +33,8 @@ onMounted(() => {
 		<h1>Hello World</h1>
 		<div v-if="time.hour != -1" class="paragraph">{{ greetComputed }}</div>		
 		<li class="mb-m"><NuxtLink to="/tech-stack">Tech stack of this website</NuxtLink></li>
-		<li class="mb-m">
-			<a href="https://www.linkedin.com/in/andreas-siegwarth-047642253">My Linkedin</a>
-		</li>
-		<li class="mb-m"><a href="https://github.com/sgwrth">My Github</a></li>
 	</div>
 </template>
 
 <style scoped>
-.mb-m {
-	margin-bottom: 1.0rem;
-}
 </style>

@@ -52,26 +52,24 @@ textarea {
 	background-color: #30252a;
 	margin-bottom: 0.5rem;
 }
+.font-s {
+	font-size: 11pt;
+}
 .input {
 	margin-bottom: 0.5rem;
 }
 .label {
 	margin-bottom: 0.5rem;
 }
-/*
 .mb-m {
 	margin-bottom: 1.0rem;
 }
-*/
 .main {
 	padding: 0.0rem;
 	padding-left: 1.0rem;
 	padding-right: 1.0rem;
 	margin: 0 auto;
 	max-width: 1000px;
-}
-.font-s {
-	font-size: 11pt;
 }
 .paragraph {
 	margin-bottom: 1.5rem;
