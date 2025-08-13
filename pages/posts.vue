@@ -1,10 +1,22 @@
 <script setup lang="ts">
+const runtimeConfig = useRuntimeConfig()
 const store = useUserStore()
 const get = getRequest()
 const posts = ref([])
 
 function isLoggedIn() {
-	return store.username !== ''
+    return store.username !== ''
+}
+
+async function deletePost(id: int) {
+    const response = await $fetch(`${runtimeConfig.public.backendUrl}/posts/${id}`, {
+        method: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${store.token}`
+        }
+    })
+    console.log(response)
+    posts.value = await get('posts')
 }
 
 onMounted(async () => {
@@ -15,12 +27,16 @@ onMounted(async () => {
 <template>
 	<div class="main">
 		<h1 class="header">les posts</h1>
+
 		<div v-if="isLoggedIn()">
 			<div class="menu"><NuxtLink to="/posts/create-post">Create Post</NuxtLink></div>
 			<div v-for="post in posts" :key="post.id">
 				<div class="title font-s">
-					<span>#{{ post.id }} | {{ post.created }} | {{ post.title }}
-						| [<NuxtLink :to="`/posts/edit/${post.id}`">Edit</NuxtLink>]</span>
+					<span>
+                        #{{ post.id }} | {{ post.created }} | {{ post.title }}
+						| [<NuxtLink :to="`/posts/edit/${post.id}`">Edit</NuxtLink>]
+                        | [<a v-on:click="deletePost(post.id)" href="#">Delete</a>]
+                    </span>
 					<span>by {{ post.author}} [{{ post.authorEmail}}]</span>
 									</div>
 				<div class="text">
@@ -31,11 +47,13 @@ onMounted(async () => {
 				</div>
 			</div>
 		</div>
-		<!-- not logged in -->
+
+		<!-- Not logged in.-->
 		<div v-else>
 			<div class="paragraph"><NuxtLink to="/login">Log in</NuxtLink> to see poasts.</div>
 			<div>No account? Try guest/guest.</div>
 		</div>
+
 	</div>
 </template>
 
