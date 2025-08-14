@@ -16,13 +16,18 @@ onMounted(async () => {
 	<div class="main">
 		<h1 class="header">les posts</h1>
 		<div v-if="isLoggedIn()">
-			<div class="menu"><NuxtLink to="/posts/create-post">Create Post</NuxtLink></div>
+			<div class="menu">
+                <NuxtLink to="/posts/create-post">Create Post</NuxtLink>
+            </div>
 			<div v-for="post in posts" :key="post.id">
 				<div class="title font-s">
-					<span>#{{ post.id }} | {{ post.created }} | {{ post.title }}
-						| [<NuxtLink :to="`/posts/edit/${post.id}`">Edit</NuxtLink>]</span>
+					<span>
+                        #{{ post.id }} | {{ post.created }} | {{ post.title }}
+						| [<NuxtLink :to="`/posts/edit/${post.id}`">Edit</NuxtLink>]
+                        | [<a v-on:click="deletePost(post.id)" href="#">Delete</a>]
+                    </span>
 					<span>by {{ post.author}} [{{ post.authorEmail}}]</span>
-									</div>
+                </div>
 				<div class="text">
 					{{ post.text }}
 					<div class="font-s mt-m">
