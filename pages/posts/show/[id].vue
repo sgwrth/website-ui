@@ -24,11 +24,9 @@ interface Post {
 onMounted(async () => {
 	try {
 		const response: Post[] = await $fetch(`${runtimeConfig.public.backendUrl}/posts/${route.id}`, {
-			method: 'GET',
-			headers: {
-				Authorization: `Bearer ${store.token}`,
-			},
-		})
+            method: 'GET',
+            headers: { Authorization: `Bearer ${store.token}` },
+        })
 		post.value.title = response[0].title
 		post.value.text = response[0].text
 		post.value.author = response[0].author
@@ -50,8 +48,11 @@ onMounted(async () => {
 	<div v-else class="main">
 		<h1 class="header">selected post</h1>
 		<div class="title font-s">
-			<span>#{{ post.id }} | {{ post.created }} | {{ post.title }}
-				| [<NuxtLink :to="`/posts/edit/${post.id}`">Edit</NuxtLink>]</span>
+			<span>
+                #{{ route.id }} | {{ post.created }} | {{ post.title }}
+                | <NuxtLink :to="`/posts/edit/${route.id}`">Edit</NuxtLink>
+                | <a v-on:click="deletePost(post.id)">Delete</a>
+            </span>
 			<span>by {{ post.author}} [{{ post.authorEmail}}]</span>
 		</div>
 		<div class="text">{{ post.text }}</div>

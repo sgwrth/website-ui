@@ -2,6 +2,7 @@
 const runtimeConfig = useRuntimeConfig()
 const store = useUserStore()
 const route = useRoute().params
+const router = useRouter()
 const putData: Ref<Post> = ref({
 	title: '',
 	text: '',
@@ -13,16 +14,21 @@ interface Post {
 }
 
 async function editPost() {
-	const response = await $fetch(`${runtimeConfig.public.backendUrl}/posts/${route.id}`, {
-		method: 'PUT',
-		headers: {
-			Authorization: `Bearer ${store.token}`,
-		},
-		body: {
-			title: putData.value.title,
-			text: putData.value.text,
-		}
-	})
+    try {
+        const response = await $fetch(`${runtimeConfig.public.backendUrl}/posts/${route.id}`, {
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${store.token}`,
+            },
+            body: {
+                title: putData.value.title,
+                text: putData.value.text,
+            }
+        })
+        router.push(`/posts/show/${route.id}`)
+    } catch (err) {
+        console.error(err)
+    }
 }
 
 onMounted(async () => {

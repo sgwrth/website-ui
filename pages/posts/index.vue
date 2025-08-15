@@ -23,8 +23,8 @@ onMounted(async () => {
 				<div class="title font-s">
 					<span>
                         #{{ post.id }} | {{ post.created }} | {{ post.title }}
-						| [<NuxtLink :to="`/posts/edit/${post.id}`">Edit</NuxtLink>]
-                        | [<a v-on:click="deletePost(post.id)" href="#">Delete</a>]
+						| <NuxtLink :to="`/posts/edit/${post.id}`">Edit</NuxtLink>
+                        | <a v-on:click="deletePost(post.id)">Delete</a>
                     </span>
 					<span>by {{ post.author}} [{{ post.authorEmail}}]</span>
                 </div>
