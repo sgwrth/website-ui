@@ -2,7 +2,9 @@
 const runtimeConfig = useRuntimeConfig()
 const store = useUserStore()
 const route = useRoute().params
+const router = useRouter()
 const requestHasFailed: Ref<boolean> = ref(false);
+
 const post: Ref<Post> = ref({
 	title: '',
 	text: '',
@@ -21,6 +23,21 @@ interface Post {
 	updated: '',
 }
 
+async function deletePost(id: int) {
+    try {
+        const response = await $fetch(`${runtimeConfig.public.backendUrl}/posts/${id}`, {
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${store.token}`
+            }
+        })
+        console.log(response)
+        router.push('/posts')
+    } catch (err) {
+        console.error(err)
+    }
+}
+
 onMounted(async () => {
 	try {
 		const response: Post[] = await $fetch(`${runtimeConfig.public.backendUrl}/posts/${route.id}`, {
@@ -37,23 +54,20 @@ onMounted(async () => {
 		console.error(error);
 		requestHasFailed.value = true;
 	}
-
 });
 </script>
 
 <template>
-	<div v-if="requestHasFailed" class="main">
-		<ErrorPage />
-	</div>
+	<div v-if="requestHasFailed" class="main"><ErrorPage /></div>
 	<div v-else class="main">
 		<h1 class="header">selected post</h1>
 		<div class="title font-s">
 			<span>
-                #{{ route.id }} | {{ post.created }} | {{ post.title }}
+                #{{ route.id }} | {{ post.title }}
                 | <NuxtLink :to="`/posts/edit/${route.id}`">Edit</NuxtLink>
-                | <a v-on:click="deletePost(post.id)">Delete</a>
+                | <a v-on:click="deletePost(route.id)">Delete</a>
             </span>
-			<span>by {{ post.author}} [{{ post.authorEmail}}]</span>
+			<span>{{ post.created }} by {{ post.author}} [{{ post.authorEmail}}]</span>
 		</div>
 		<div class="text">{{ post.text }}</div>
 	</div>

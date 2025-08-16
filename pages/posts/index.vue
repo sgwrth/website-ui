@@ -7,6 +7,17 @@ function isLoggedIn() {
 	return store.username !== ''
 }
 
+async function deletePost(id: int) {
+    const response = await $fetch(`${runtimeConfig.public.backendUrl}/posts/${id}`, {
+        method: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${store.token}`
+        }
+    })
+    console.log(response)
+    posts.value = await get('posts')
+}
+
 onMounted(async () => {
 	posts.value = await get('posts')
 })
@@ -22,11 +33,11 @@ onMounted(async () => {
 			<div v-for="post in posts" :key="post.id">
 				<div class="title font-s">
 					<span>
-                        #{{ post.id }} | {{ post.created }} | {{ post.title }}
+                        #{{ post.id }} | {{ post.title }}
 						| <NuxtLink :to="`/posts/edit/${post.id}`">Edit</NuxtLink>
                         | <a v-on:click="deletePost(post.id)">Delete</a>
                     </span>
-					<span>by {{ post.author}} [{{ post.authorEmail}}]</span>
+					<span>{{ post.created }} by {{ post.authorEmail}}</span>
                 </div>
 				<div class="text">
 					{{ post.text }}
