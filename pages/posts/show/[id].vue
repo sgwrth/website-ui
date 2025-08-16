@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Post } from '../../../types/Post'
 const runtimeConfig = useRuntimeConfig()
 const store = useUserStore()
 const route = useRoute().params
@@ -6,6 +7,7 @@ const router = useRouter()
 const requestHasFailed: Ref<boolean> = ref(false);
 
 const post: Ref<Post> = ref({
+    id: -1,
 	title: '',
 	text: '',
 	author: '',
@@ -14,36 +16,13 @@ const post: Ref<Post> = ref({
 	updated: '',
 })
 
-interface Post {
-	title: '',
-	text: '',
-	author: '',
-	authorEmail: '',
-	created: '',
-	updated: '',
-}
-
-async function deletePost(id: int) {
-    try {
-        const response = await $fetch(`${runtimeConfig.public.backendUrl}/posts/${id}`, {
-            method: 'DELETE',
-            headers: {
-                Authorization: `Bearer ${store.token}`
-            }
-        })
-        console.log(response)
-        router.push('/posts')
-    } catch (err) {
-        console.error(err)
-    }
-}
-
 onMounted(async () => {
 	try {
 		const response: Post[] = await $fetch(`${runtimeConfig.public.backendUrl}/posts/${route.id}`, {
             method: 'GET',
             headers: { Authorization: `Bearer ${store.token}` },
         })
+        post.value.id = response[0].id
 		post.value.title = response[0].title
 		post.value.text = response[0].text
 		post.value.author = response[0].author
@@ -62,12 +41,7 @@ onMounted(async () => {
 	<div v-else class="main">
 		<h1 class="header">selected post</h1>
 		<div class="title font-s">
-			<span>
-                #{{ route.id }} | {{ post.title }}
-                | <NuxtLink :to="`/posts/edit/${route.id}`">Edit</NuxtLink>
-                | <a v-on:click="deletePost(route.id)">Delete</a>
-            </span>
-			<span>{{ post.created }} by {{ post.author}} [{{ post.authorEmail}}]</span>
+            <PostData :post="post" />
 		</div>
 		<div class="text">{{ post.text }}</div>
 	</div>

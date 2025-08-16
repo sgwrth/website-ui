@@ -7,7 +7,7 @@ function isLoggedIn() {
 	return store.username !== ''
 }
 
-async function deletePost(id: int) {
+async function deletePost(id: number) {
     const response = await $fetch(`${runtimeConfig.public.backendUrl}/posts/${id}`, {
         method: 'DELETE',
         headers: {
@@ -16,6 +16,10 @@ async function deletePost(id: int) {
     })
     console.log(response)
     posts.value = await get('posts')
+}
+
+async function refreshListOfPosts() {
+	posts.value = await get('posts')
 }
 
 onMounted(async () => {
@@ -32,12 +36,7 @@ onMounted(async () => {
             </div>
 			<div v-for="post in posts" :key="post.id">
 				<div class="title font-s">
-					<span>
-                        #{{ post.id }} | {{ post.title }}
-						| <NuxtLink :to="`/posts/edit/${post.id}`">Edit</NuxtLink>
-                        | <a v-on:click="deletePost(post.id)">Delete</a>
-                    </span>
-					<span>{{ post.created }} by {{ post.authorEmail}}</span>
+                    <PostData :post="post" @deleted="refreshListOfPosts" />
                 </div>
 				<div class="text">
 					{{ post.text }}
