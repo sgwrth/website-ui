@@ -29,27 +29,44 @@ async function submitPost() {
 <template>
 	<div class="main">
 		<h1>Write a post</h1>
+
 		<div class="label">
             <label for="title">Title</label>
         </div>
-		<div class="input">
+		<div>
             <input
+                class="post-title"
                 v-model="postData.title"
                 id="title"
                 type="text"
-                placeholder="Title"
+                placeholder="Make it snappy"
             />
         </div>
+
 		<div class="label">
             <label for="text">Text</label>
         </div>
-		<div class="textarea">
+		<div>
 			<textarea
+                class="post-body"
                 v-model="postData.text"
                 id="text"
-                placeholder="Go ahead, Shakespeare"
+                placeholder="Elaborate"
             />
 		</div>
+
 		<button v-on:click="submitPost">Tell the world</button>
 	</div>
 </template>
+
+<style scoped>
+.post-title {
+    width: 75%;
+    margin-bottom: 1.5rem;
+}
+.post-body {
+    width: 75%;
+    resize: none;
+    margin-bottom: 1.5rem;
+}
+</style>

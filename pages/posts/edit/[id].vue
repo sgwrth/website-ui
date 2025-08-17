@@ -45,14 +45,43 @@ onMounted(async () => {
 
 <template>
 	<div class="main">
-		<h1>edit your post #{{route.id}}</h1>
-		<label for="title">title</label><br />
-		<input v-model="putData.title" id="title" type="text" /><br />
-		<label for="text">text</label><br />
-		<textarea v-model="putData.text" id="text" /><br />
-		<button v-on:click="editPost">send</button>
+        <h1>Edit post #{{route.id}}</h1>
+
+        <div class="label">
+            <label for="title">Title</label><br />
+        </div>
+        <div>
+            <input
+                class="post-title"
+                v-model="putData.title"
+                id="title"
+                type="text"
+            />
+        </div>
+
+        <div class="label">
+            <label for="text">Text</label>
+        </div>
+        <div>
+            <textarea
+                class="post-body"
+                v-model="putData.text"
+                id="text" />
+        </div>
+
+        <button v-on:click="editPost">Update</button>
 	</div>
 </template>
 
+
 <style scoped>
+.post-title {
+    width: 75%;
+    margin-bottom: 1.5rem;
+}
+.post-body {
+    width: 75%;
+    resize: none;
+    margin-bottom: 1.5rem;
+}
 </style>

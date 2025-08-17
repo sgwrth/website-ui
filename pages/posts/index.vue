@@ -7,73 +7,43 @@ function isLoggedIn() {
 	return store.username !== ''
 }
 
-async function deletePost(id: number) {
-    const response = await $fetch(`${runtimeConfig.public.backendUrl}/posts/${id}`, {
-        method: 'DELETE',
-        headers: {
-            Authorization: `Bearer ${store.token}`
-        }
-    })
-    console.log(response)
-    posts.value = await get('posts')
-}
-
 async function refreshListOfPosts() {
 	posts.value = await get('posts')
 }
 
 onMounted(async () => {
-	posts.value = await get('posts')
+	refreshListOfPosts()
 })
 </script>
 
 <template>
 	<div class="main">
-		<h1 class="header">les posts</h1>
+		<h1 class="header">The Posts</h1>
+
 		<div v-if="isLoggedIn()">
 			<div class="menu">
                 <NuxtLink to="/posts/create-post">Create Post</NuxtLink>
             </div>
 			<div v-for="post in posts" :key="post.id">
-				<div class="title font-s">
-                    <PostData :post="post" @deleted="refreshListOfPosts" />
-                </div>
-				<div class="text">
-					{{ post.text }}
-					<div class="font-s mt-m">
-						<NuxtLink :to="`/posts/show/${post.id}`">Read full post</NuxtLink>
-					</div>
-				</div>
+                <PostHeader :post="post" />
+                <PostBodyPreview :post="post" />
+                <PostFooter :post="post" @deleted="refreshListOfPosts" />
 			</div>
 		</div>
-		<!-- not logged in -->
+
+        <!-- Not logged in. -->
 		<div v-else>
-			<div class="paragraph"><NuxtLink to="/login">Log in</NuxtLink> to see poasts.</div>
+			<div class="paragraph">
+                <NuxtLink to="/login">Log in</NuxtLink> to see posts.
+            </div>
 			<div>No account? Try guest/guest.</div>
 		</div>
+
 	</div>
 </template>
 
 <style scoped>
 .menu {
 	margin-bottom: 1.0rem;
-}
-.mt-m {
-	margin-top: 1.0rem;
-}
-.title {
-	display: flex;
-	justify-content: space-between;
-	background-color: #20151a;
-	padding: 0.5rem;
-	border-top: solid 0.15rem #000000;
-	border-left: solid 0.15rem #000000;
-	border-right: solid 0.15rem #000000;
-}
-.text {
-	background-color: #30252a;
-	padding: 0.5rem;
-	margin-bottom: 1.5rem;
-	border: solid 0.15rem #000000;
 }
 </style>

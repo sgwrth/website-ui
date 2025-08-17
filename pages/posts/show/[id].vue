@@ -39,29 +39,12 @@ onMounted(async () => {
 <template>
 	<div v-if="requestHasFailed" class="main"><ErrorPage /></div>
 	<div v-else class="main">
-		<h1 class="header">selected post</h1>
-		<div class="title font-s">
-            <PostData :post="post" />
-		</div>
-		<div class="text">{{ post.text }}</div>
+        <h1 class="header">Post #{{ post.id }}</h1>
+        <PostHeader :post="post" />
+        <PostBodyFull :post="post" />
+        <PostFooter :post="post" @deleted="" /> <!-- No need to process the emit. -->
 	</div>
 </template>
 
 <style scoped>
-.title {
-	display: flex;
-	justify-content: space-between;
-	background-color: #20151a;
-	padding: 0.5rem;
-	border-top: solid 0.15rem #000000;
-	border-left: solid 0.15rem #000000;
-	border-right: solid 0.15rem #000000;
-}
-
-.text {
-	background-color: #30252a;
-	padding: 0.5rem;
-	margin-bottom: 1.5rem;
-	border: solid 0.15rem #000000;
-}
 </style>
