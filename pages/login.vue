@@ -51,23 +51,37 @@ function resetCredentials() {
 </script>
 
 <template>
-	<div class="main">	<!-- not logged in -->
+	<div class="main">
+
+        <!-- Not logged in.-->
 		<div v-if="store.username === ''">
-			<h1>Login</h1>
+			<div class="header">Login</div>
 			<div class="label"><label for="email">E-mail</label></div>
-			<div class="input"><input v-model="inputData.email" id="email" type="text"></div>
-			<div class="label"><label for="password">Password</label><br /></div>
-			<div class="input"><input v-model="inputData.password" id="password" type="password"></div>
+			<div class="input">
+                <input v-model="inputData.email" id="email" type="text">
+            </div>
+			<div class="label">
+                <label for="password">Password</label><br />
+            </div>
+			<div class="input">
+                <input
+                    v-model="inputData.password"
+                    id="password"
+                    type="password"
+                />
+            </div>
 			<button v-on:click="login">LFG!</button>
-			<!-- login failed -->
+
+			<!-- Login failed. -->
 			<div v-if="loginFailed">
 				<div>error code:{{ loginErrorData.status }}</div>
 				<div>{{ loginErrorData.message}}</div>
 			</div>
 		</div>
-		<!-- login successful -->
+
+		<!-- Login successful. -->
 		<div v-else>
-			<h1>Great login success!</h1>
+			<div class="header">Great login success!</div>
 			<div>Welcome, {{ store.username }}!</div>
 		</div>
 	</div>

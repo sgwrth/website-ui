@@ -1,25 +1,39 @@
 <script setup lang="ts">
+import type { PostCreateOfUpdateDto } from '../../types/PostCreateOrUpdateDto'
+
 const runtimeConfig = useRuntimeConfig()
 const store = useUserStore()
 const router = useRouter()
-const postData = ref({
+const postData: Ref<PostCreateOrUpdateDto> = ref({
 	title: '',
 	text: '',
 })
+const unauthorized: Ref<boolean> = ref(false)
+
+function closePopup() {
+    unauthorized.value = false;
+}
 
 async function submitPost() {
     try {
-        const response = await $fetch(`${runtimeConfig.public.backendUrl}/posts`, {
+        const requestBody = JSON.stringify({
+            title: postData.value.title,
+            text: postData.value.text,
+        })
+        const response = await fetch(`${runtimeConfig.public.backendUrl}/posts`, {
             method: 'POST',
             headers: {
-                Authorization: `Bearer ${store.token}`,
+                'Authorization': `Bearer ${store.token}`,
+                'Content-type': 'application/json',
             },
-            body: {
-                title: postData.value.title,
-                text: postData.value.text,
-            }
+            body: requestBody,
         })
-        router.push('/posts')
+        const statusCode = response.status
+        if (statusCode >= 400 && statusCode < 500) {
+            unauthorized.value = true
+        } else {
+            router.push('/posts')
+        }
     } catch (err) {
         console.error(err)
     }
@@ -28,7 +42,11 @@ async function submitPost() {
 
 <template>
 	<div class="main">
-		<h1>Write a post</h1>
+		<div class="header">Write a post</div>
+
+        <div v-if="unauthorized">
+            <PopupUnauthorized @close="closePopup"/>
+        </div>
 
 		<div class="label">
             <label for="title">Title</label>

@@ -30,9 +30,11 @@ onMounted(() => {
 
 <template>
 	<div class="main">
-		<h1>Hello World</h1>
-		<div v-if="time.hour != -1" class="paragraph">{{ greetComputed }}</div>		
-		<li class="mb-m"><NuxtLink to="/tech-stack">Tech stack of this website</NuxtLink></li>
+		<div class="header">Hello World</div>
+		<div v-if="time.hour != -1" class="paragraph">{{ greetComputed }}</div>
+		<li class="mb-m">
+            <NuxtLink to="/tech-stack">Tech stack of this website</NuxtLink>
+        </li>
 	</div>
 </template>
 

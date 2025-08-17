@@ -2,6 +2,7 @@
 const store = useUserStore()
 const get = getRequest()
 const posts = ref([])
+const unauthorized: Ref<boolean> = ref(false)
 
 function isLoggedIn() {
 	return store.username !== ''
@@ -11,6 +12,14 @@ async function refreshListOfPosts() {
 	posts.value = await get('posts')
 }
 
+function setUnauthorized() {
+    unauthorized.value = true
+}
+
+function closePopup() {
+    unauthorized.value = false;
+}
+
 onMounted(async () => {
 	refreshListOfPosts()
 })
@@ -18,7 +27,11 @@ onMounted(async () => {
 
 <template>
 	<div class="main">
-		<h1 class="header">The Posts</h1>
+		<div class="header">The Posts</div>
+
+        <div v-if="unauthorized">
+            <PopupUnauthorized @close="closePopup" />
+        </div>
 
 		<div v-if="isLoggedIn()">
 			<div class="menu">
@@ -27,16 +40,20 @@ onMounted(async () => {
 			<div v-for="post in posts" :key="post.id">
                 <PostHeader :post="post" />
                 <PostBodyPreview :post="post" />
-                <PostFooter :post="post" @deleted="refreshListOfPosts" />
+                <PostFooter
+                    :post="post"
+                    @deleted="refreshListOfPosts"
+                    @unauthorized="setUnauthorized"
+                />
 			</div>
 		</div>
 
         <!-- Not logged in. -->
 		<div v-else>
 			<div class="paragraph">
-                <NuxtLink to="/login">Log in</NuxtLink> to see posts.
+                <NuxtLink to="/login">Log in</NuxtLink> with 'guest/guest'
+                to see posts.
             </div>
-			<div>No account? Try guest/guest.</div>
 		</div>
 
 	</div>

@@ -3,7 +3,7 @@
 
 <template>
 	<div class="main">
-		<h1>Tech stack</h1>
+		<div class="header">Tech stack</div>
 		<li>AWS</li>
 		<li>Bash</li>
 		<li>Curl</li>

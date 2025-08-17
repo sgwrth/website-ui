@@ -3,7 +3,7 @@
 
 <template>
 	<div class="main">
-		<h1>Links</h1>
+		<div class="header">Links</div>
 		<li class="mb-m">
 			<a href="https://www.linkedin.com/in/andreas-siegwarth-047642253">My Linkedin</a>
 		</li>

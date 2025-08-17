@@ -1,31 +1,39 @@
 <script setup lang="ts">
+import type { Post } from '../../../types/Post'
+import type { PostCreateOrUpdateDto } from '../../../types/PostCreateOrUpdateDto'
+
 const runtimeConfig = useRuntimeConfig()
 const store = useUserStore()
 const route = useRoute().params
 const router = useRouter()
-const putData: Ref<Post> = ref({
+const unauthorized: Ref<boolean> = ref(false)
+const putData: Ref<PostCreateOrUpdateDto> = ref({
 	title: '',
 	text: '',
 })
 
-interface Post {
-	title: '',
-	text: '',
+function closePopup() {
+    unauthorized.value = false;
 }
 
 async function editPost() {
     try {
-        const response = await $fetch(`${runtimeConfig.public.backendUrl}/posts/${route.id}`, {
+        const response = await fetch(`${runtimeConfig.public.backendUrl}/posts/${route.id}`, {
             method: 'PUT',
             headers: {
-                Authorization: `Bearer ${store.token}`,
+                'Authorization': `Bearer ${store.token}`,
             },
-            body: {
+            body: JSON.stringify({
                 title: putData.value.title,
                 text: putData.value.text,
-            }
+            })
         })
-        router.push(`/posts/show/${route.id}`)
+        const statusCode = response.status
+        if (statusCode >= 400 && statusCode < 500) {
+            unauthorized.value = true
+        } else {
+            router.push(`/posts/show/${route.id}`)
+        }
     } catch (err) {
         console.error(err)
     }
@@ -45,7 +53,11 @@ onMounted(async () => {
 
 <template>
 	<div class="main">
-        <h1>Edit post #{{route.id}}</h1>
+        <div class="header">Edit post #{{route.id}}</div>
+
+        <div v-if="unauthorized">
+            <PopupUnauthorized @close="closePopup"/>
+        </div>
 
         <div class="label">
             <label for="title">Title</label><br />
@@ -66,7 +78,8 @@ onMounted(async () => {
             <textarea
                 class="post-body"
                 v-model="putData.text"
-                id="text" />
+                id="text"
+            />
         </div>
 
         <button v-on:click="editPost">Update</button>

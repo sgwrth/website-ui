@@ -48,6 +48,7 @@ function toDate(dateString, months, weekdays) {
 	const year = date.getFullYear()
 	const month = months[date.getMonth()]
 	const day = date.getDate()
+
 	const weekday = weekdays[date.getDay()]
 	return `${weekday}, ${month} ${day}, ${year}`
 }
@@ -65,7 +66,7 @@ onMounted(async () => {
 
 <template>
 	<div class="main">
-		<h1>User</h1>
+		<div class="header">User</div>
 		<div v-if="userDataLoaded == false">Loading ...</div>
 		<table v-else>
 			<tbody>

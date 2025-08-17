@@ -17,17 +17,30 @@ function logout() {
 			<div class="cell"><NuxtLink to="/posts">Posts</NuxtLink></div>
 			<div class="cell"><NuxtLink to="/links">Links</NuxtLink></div>
 
-			<!-- logged in -->
+            <template v-if="store.username !== ''">
+                <div class="cell">
+                    <NuxtLink to="/user">You</NuxtLink>
+                </div>
+            </template>
+
+            <!-- Not logged in. -->
+            <template v-else>
+                <div class="cell">You</div>
+            </template>
+
 			<template v-if="store.username !== ''">
 				<div class="cell">
-					<NuxtLink to="/user">{{ store.username }}</NuxtLink>&nbsp;<NuxtLink to="/login" v-on:click="logout">[x]</NuxtLink>
+					<NuxtLink to="/login" v-on:click="logout">Logout</NuxtLink>
 				</div>
 			</template>
 
-			<!-- not logged in -->
+			<!-- Not logged in. -->
 			<template v-else>
-				<div class="cell"><NuxtLink to="/login">Login</NuxtLink></div>
+				<div class="cell">
+                    <NuxtLink to="/login">Login</NuxtLink>
+                </div>
 			</template>
+
 		</div>
 	</div>
 </template>
@@ -44,7 +57,7 @@ function logout() {
 	margin: 0 auto;
 	max-width: 1000px;
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
+	grid-template-columns: repeat(5, 1fr);
 	grid-template-rows: 1fr;
 }
 .responsive-img {

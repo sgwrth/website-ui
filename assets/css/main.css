@@ -1,76 +1,103 @@
 *,
 *::before,
 *::after {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
+
 a {
-	color: #ffe000;
-	text-decoration: none;
+    color: #ffe000;
+    text-decoration: none;
 }
+
 a:hover {
-	color: #d0a0a0;
-	cursor: pointer;
+    color: #d0a0a0;
+    cursor: pointer;
 }
+
 body {
-	background-color: #10050a;
-	font-family: "Trebuchet MS";
-	font-size: 14pt;
+    background-color: #10050a;
+    font-family: "Trebuchet MS";
+    font-size: 13pt;
 }
+
 button {
-	font-size: 14pt;
-	font-family: "Trebuchet MS";
-	margin-top: 0.5rem;
-	padding-left: 0.5rem;
-	padding-right: 0.5rem;
+    font-size: 13pt;
+    font-family: "Trebuchet MS";
+    margin-top: 0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 }
+
 div {
-	color: #c0c0b0;
+    color: #c0c0b0;
 }
+
 h1 {
-	color: #c0c0b0;
-	margin-bottom: 1.5rem;
+    color: #c0c0b0;
+    margin-bottom: 1.5rem;
 }
+
 input {
-	color: #e0e0d0;
-	font-size: 14pt;
-	font-family: "Trebuchet MS";
-	background-color: #30252a;
-	margin-bottom: 0.5rem;
-	/* removing 3D effect: */
-	box-shadow: none;
-	outline: none;
-	appearance: none; /* For most modern browsers */
-	-webkit-appearance: none; /* For Safari/Chrome */
-	-moz-appearance: none; /* For Firefox */
+    color: #e0e0d0;
+    font-size: 13pt;
+    font-family: "Trebuchet MS";
+    background-color: #30252a;
+    margin-bottom: 0.5rem;
+    /* Removing 3D effect. */
+    box-shadow: none;
+    outline: none;
+    /* For most modern browsers */
+    appearance: none;
+    /* For Safari/Chrome */
+    -webkit-appearance: none;
+    /* For Firefox */
+    -moz-appearance: none;
 }
+
 textarea {
-	color: #e0e0d0;
-	font-size: 14pt;
-	font-family: "Trebuchet MS";
-	background-color: #30252a;
-	margin-bottom: 0.5rem;
+    color: #e0e0d0;
+    font-size: 13pt;
+    font-family: "Trebuchet MS";
+    background-color: #30252a;
+    margin-bottom: 0.5rem;
 }
+
 .font-s {
-	font-size: 11pt;
+    font-size: 11pt;
 }
+
+.header {
+    font-family: "Trebuchet MS";
+    font-size: 20pt;
+    margin-bottom: 1.5rem;
+}
+
 .input {
-	margin-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
 }
+
 .label {
-	margin-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
 }
+
 .mb-m {
-	margin-bottom: 1.0rem;
+    margin-bottom: 1.0rem;
 }
+
+.mt-m {
+    margin-top: 1.0rem;
+}
+
 .main {
-	padding: 0.0rem;
-	padding-left: 1.0rem;
-	padding-right: 1.0rem;
-	margin: 0 auto;
-	max-width: 1000px;
+    padding: 0.0rem;
+    padding-left: 1.0rem;
+    padding-right: 1.0rem;
+    margin: 0 auto;
+    max-width: 1000px;
 }
+
 .paragraph {
-	margin-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
 }
