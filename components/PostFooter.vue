@@ -4,8 +4,8 @@ const deletePost = useDeletePost()
 const emit = defineEmits(['deleted', 'unauthorized'])
 const unauthorized: Ref<boolean> = ref(false)
 
-function deletePostAndEmitReload(postId: number) {
-    unauthorized.value = deletePost(postId)
+async function deletePostAndEmitReload(postId: number) {
+    unauthorized.value = await deletePost(postId)
     if (unauthorized.value) {
         emit('unauthorized')
         return
