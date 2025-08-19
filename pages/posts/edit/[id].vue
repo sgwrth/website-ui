@@ -76,6 +76,7 @@ onMounted(async () => {
         </div>
         <div>
             <textarea
+                rows="5"
                 class="post-body"
                 v-model="putData.text"
                 id="text"

@@ -66,6 +66,7 @@ async function submitPost() {
         </div>
 		<div>
 			<textarea
+                rows="5"
                 class="post-body"
                 v-model="postData.text"
                 id="text"

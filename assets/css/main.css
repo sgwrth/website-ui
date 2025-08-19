@@ -40,6 +40,9 @@ h1 {
 }
 
 input {
+    border: 1px solid #888;
+    border-radius: 0px;
+    padding: 0.4rem;
     color: #e0e0d0;
     font-size: 13pt;
     font-family: "Trebuchet MS";
@@ -57,11 +60,14 @@ input {
 }
 
 textarea {
+    border: 1px solid #888;
+    border-radius: 0px;
     color: #e0e0d0;
     font-size: 13pt;
     font-family: "Trebuchet MS";
     background-color: #30252a;
     margin-bottom: 0.5rem;
+    padding: 0.4rem;
 }
 
 .font-s {
