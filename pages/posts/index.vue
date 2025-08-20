@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Post } from '../../types/Post'
 const store = useUserStore()
 const get = getRequest()
 const posts = ref([])
@@ -9,7 +10,7 @@ function isLoggedIn() {
 }
 
 async function refreshListOfPosts() {
-	posts.value = await get('posts')
+    posts.value = await get<Post[]>('posts')
 }
 
 function setUnauthorized() {

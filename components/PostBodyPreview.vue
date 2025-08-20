@@ -27,5 +27,6 @@ defineProps<{
 	padding: 0.5rem;
 	margin-bottom: 0.0rem;
 	border: solid 0.15rem #000000;
+    white-space: pre-wrap;
 }
 </style>

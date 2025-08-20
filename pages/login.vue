@@ -82,7 +82,8 @@ function resetCredentials() {
 		<!-- Login successful. -->
 		<div v-else>
 			<div class="header">Great login success!</div>
-			<div>Welcome, {{ store.username }}!</div>
+			<div class="mb-m">Welcome, {{ store.username }}!</div>
+            <div>Check out the <NuxtLink to="/posts">posts</NuxtLink>.</div>
 		</div>
 	</div>
 </template>

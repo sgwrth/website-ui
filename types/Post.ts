@@ -1,9 +1,9 @@
 export interface Post {
-    id: -1,
-    title: '',
-    text: '',
-    author: '',
-    authorEmail: '',
-    created: '',
-    updated: '',
+    id: number,
+    title: string,
+    text: string,
+    author: string,
+    authorEmail: string,
+    created: string,
+    updated: string,
 }

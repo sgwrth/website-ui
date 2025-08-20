@@ -4,6 +4,21 @@ const deletePost = useDeletePost()
 const emit = defineEmits(['deleted', 'unauthorized'])
 const unauthorized: Ref<boolean> = ref(false)
 
+const months: string[] = [
+	'January',
+	'February',
+	'March',
+	'April',
+	'May',
+	'June',
+	'July',
+	'August',
+	'September',
+	'October',
+	'November',
+	'December',
+]
+
 async function deletePostAndEmitReload(postId: number) {
     unauthorized.value = await deletePost(postId)
     if (unauthorized.value) {
@@ -11,6 +26,14 @@ async function deletePostAndEmitReload(postId: number) {
         return
     }
     emit('deleted')
+}
+
+function toNamedDate(dateStr: string): string {
+    const date = new Date(dateStr)
+    const year = date.getFullYear()
+    const month = months[date.getMonth()]
+    const day = date.getDate()
+    return `${month} ${day}, ${year}`
 }
 
 defineProps<{
@@ -24,7 +47,7 @@ defineProps<{
             <NuxtLink :to="`/posts/edit/${post.id}`">Edit</NuxtLink>
             &bullet; <a v-on:click="deletePostAndEmitReload(post.id)">Delete</a>
         </span>
-        <span>{{ post.created }} by {{ post.authorEmail}}</span>
+        <span>{{ toNamedDate(post.created) }} &bullet; {{ post.authorEmail}}</span>
     </div>
 </template>
 
