@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Post } from '../types/Post'
+
 const deletePost = useDeletePost()
 const emit = defineEmits(['deleted', 'unauthorized'])
 const unauthorized: Ref<boolean> = ref(false)

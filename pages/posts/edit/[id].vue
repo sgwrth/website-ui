@@ -22,6 +22,7 @@ async function editPost() {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${store.token}`,
+                'Content-type': 'application/json',
             },
             body: JSON.stringify({
                 title: putData.value.title,

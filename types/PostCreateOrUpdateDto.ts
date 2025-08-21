@@ -1,4 +1,4 @@
-export default interface PostPutData {
+export interface PostCreateOrUpdateDto {
     title: string,
     text: string,
 }

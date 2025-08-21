@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { PostCreateOfUpdateDto } from '../../types/PostCreateOrUpdateDto'
+import type { PostCreateOrUpdateDto } from '../../types/PostCreateOrUpdateDto'
 
 const runtimeConfig = useRuntimeConfig()
 const store = useUserStore()
