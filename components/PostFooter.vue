@@ -2,7 +2,7 @@
 import type { Post } from '../types/Post'
 
 const deletePost = useDeletePost()
-const emit = defineEmits(['deleted', 'unauthorized'])
+const emit = defineEmits(['deleted', 'unauthorized', 'confirmDelete'])
 const unauthorized: Ref<boolean> = ref(false)
 
 const months: string[] = [
@@ -21,12 +21,13 @@ const months: string[] = [
 ]
 
 async function deletePostAndEmitReload(postId: number) {
-    unauthorized.value = await deletePost(postId)
-    if (unauthorized.value) {
-        emit('unauthorized')
-        return
-    }
-    emit('deleted')
+    emit('confirmDelete', postId)
+    // unauthorized.value = await deletePost(postId)
+    // if (unauthorized.value) {
+    //     emit('unauthorized')
+    //     return
+    // }
+    // emit('deleted')
 }
 
 function toNamedDate(dateStr: string): string {
