@@ -21,7 +21,7 @@ interface LoginReponse {
 
 async function login() {
 	try {
-		const response: LoginReponse = await $fetch(`${runtimeConfig.public.backendUrl}/login`, {
+		const response: LoginReponse = await $fetch(`${runtimeConfig.public.apiUrl}/login`, {
 			method: 'POST',
 			body: {
 				email: inputData.value.email,

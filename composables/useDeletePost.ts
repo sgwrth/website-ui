@@ -5,7 +5,7 @@ const router = useRouter()
 export default function useDeletePost() {
     return async (id: number) => {
         let isUnauthorized = false
-        const response = await fetch(`${runtimeConfig.public.backendUrl}/posts/${id}`, {
+        const response = await fetch(`${runtimeConfig.public.apiUrl}/posts/${id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${store.token}`

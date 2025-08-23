@@ -1,49 +1,31 @@
 <script setup lang="ts">
 import type { Post } from '../../types/Post'
 
-const store = useUserStore()
-const get = getRequest()
+const get = useGetRequest()
+const del = useDeletePost()
+const isLoggedIn = useIsLoggedIn()
+const refreshPosts = useRefreshListOfPosts()
+
 const posts = ref([])
 const unauthorized: Ref<boolean> = ref(false)
 const showConfirmationPopup: Ref<boolean> = ref(false)
-const delPost = useDeletePost()
 const activePostId: Ref<number> = ref(-1)
-
-function isLoggedIn() {
-	return store.username !== ''
-}
-
-async function refreshListOfPosts() {
-    posts.value = await get<Post[]>('posts')
-}
-
-function setUnauthorized() {
-    unauthorized.value = true
-}
-
-function closePopup() {
-    unauthorized.value = false;
-}
 
 function askForConfirmation(postId: number) {
     activePostId.value = postId
     showConfirmationPopup.value = true
 }
 
-function cancelDelete() {
-    showConfirmationPopup.value = false
-}
-
 async function deletePost() {
     showConfirmationPopup.value = false
-    unauthorized.value = await delPost(activePostId.value)
+    unauthorized.value = await del(activePostId.value)
     if (!unauthorized.value) {
         posts.value = await get<Post[]>('posts')
     }
 }
 
 onMounted(async () => {
-	refreshListOfPosts()
+	posts.value = await refreshPosts()
 })
 </script>
 
@@ -53,13 +35,13 @@ onMounted(async () => {
 
         <div v-if="showConfirmationPopup">
             <PopupConfirmDelete
-                @abortDelete="cancelDelete"
+                @abortDelete="showConfirmationPopup = false"
                 @confirmDelete="deletePost"
             />
         </div>
 
         <div v-if="unauthorized">
-            <PopupUnauthorized @close="closePopup" />
+            <PopupUnauthorized @close="() => unauthorized = false" />
         </div>
 
 		<div v-if="isLoggedIn()">

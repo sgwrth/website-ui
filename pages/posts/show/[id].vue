@@ -3,14 +3,15 @@ import type { Post } from '../../../types/Post'
 
 const runtimeConfig = useRuntimeConfig()
 const store = useUserStore()
+const del = useDeletePost()
+
 const route = useRoute().params
 const router = useRouter()
+
 const requestHasFailed: Ref<boolean> = ref(false)
 const showConfirmationPopup: Ref<boolean> = ref(false)
 const activePostId: Ref<number> = ref(-1)
-const delPost = useDeletePost()
 const unauthorized: Ref<boolean> = ref(false)
-
 const post: Ref<Post> = ref({
     id: -1,
 	title: '',
@@ -26,13 +27,9 @@ function askForConfirmation(postId: number) {
     showConfirmationPopup.value = true
 }
 
-function cancelDelete() {
-    showConfirmationPopup.value = false
-}
-
 async function deletePost() {
     showConfirmationPopup.value = false
-    unauthorized.value = await delPost(activePostId.value)
+    unauthorized.value = await del(activePostId.value)
     if (!unauthorized.value) {
         posts.value = await get<Post[]>('posts')
     }
@@ -41,7 +38,8 @@ async function deletePost() {
 
 onMounted(async () => {
 	try {
-		const response: Post[] = await $fetch(`${runtimeConfig.public.backendUrl}/posts/${route.id}`, {
+		const response: Post[]
+                = await $fetch(`${runtimeConfig.public.apiUrl}/posts/${route.id}`, {
             method: 'GET',
             headers: { Authorization: `Bearer ${store.token}` },
         })
@@ -68,7 +66,7 @@ onMounted(async () => {
         <div v-else>
             <div v-if="showConfirmationPopup">
                 <PopupConfirmDelete
-                    @abortDelete="cancelDelete"
+                    @abortDelete="showConfirmationPopup = false"
                     @confirmDelete="deletePost"
                 />
             </div>

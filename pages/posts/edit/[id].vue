@@ -18,7 +18,7 @@ function closePopup() {
 
 async function editPost() {
     try {
-        const response = await fetch(`${runtimeConfig.public.backendUrl}/posts/${route.id}`, {
+        const response = await fetch(`${runtimeConfig.public.apiUrl}/posts/${route.id}`, {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${store.token}`,
@@ -41,7 +41,7 @@ async function editPost() {
 }
 
 onMounted(async () => {
-	const response: Post[] = await $fetch(`${runtimeConfig.public.backendUrl}/posts/${route.id}`, {
+	const response: Post[] = await $fetch(`${runtimeConfig.public.apiUrl}/posts/${route.id}`, {
 		method: 'GET',
 		headers: {
 			Authorization: `Bearer ${store.token}`,

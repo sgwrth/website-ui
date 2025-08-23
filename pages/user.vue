@@ -2,8 +2,9 @@
 import type { User } from '../types/User'
 
 const store = useUserStore()
-const get = getRequest()
+const get = useGetRequest()
 const runtimeConfig = useRuntimeConfig()
+
 const userDataLoaded: Ref<boolean> = ref(false)
 const user: Ref<User> = ref({
 	username: '',
