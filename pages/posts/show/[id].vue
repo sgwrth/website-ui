@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import type { Post } from '../../../types/Post'
+
 const runtimeConfig = useRuntimeConfig()
 const store = useUserStore()
 const route = useRoute().params
 const router = useRouter()
-const requestHasFailed: Ref<boolean> = ref(false);
+const requestHasFailed: Ref<boolean> = ref(false)
+const showConfirmationPopup: Ref<boolean> = ref(false)
+const activePostId: Ref<number> = ref(-1)
+const delPost = useDeletePost()
+const unauthorized: Ref<boolean> = ref(false)
 
 const post: Ref<Post> = ref({
     id: -1,
@@ -15,6 +20,24 @@ const post: Ref<Post> = ref({
 	created: '',
 	updated: '',
 })
+
+function askForConfirmation(postId: number) {
+    activePostId.value = postId
+    showConfirmationPopup.value = true
+}
+
+function cancelDelete() {
+    showConfirmationPopup.value = false
+}
+
+async function deletePost() {
+    showConfirmationPopup.value = false
+    unauthorized.value = await delPost(activePostId.value)
+    if (!unauthorized.value) {
+        posts.value = await get<Post[]>('posts')
+    }
+}
+
 
 onMounted(async () => {
 	try {
@@ -37,13 +60,28 @@ onMounted(async () => {
 </script>
 
 <template>
-	<div v-if="requestHasFailed" class="main"><ErrorPage /></div>
-	<div v-else class="main">
-        <h1 class="header">Post #{{ post.id }}</h1>
-        <PostHeader :post="post" />
-        <PostBodyFull :post="post" />
-        <PostFooter :post="post" @deleted="" /> <!-- No need to process the emit. -->
-	</div>
+	<div class="main">
+        <div v-if="requestHasFailed" class="main">
+            <ErrorPage />
+        </div>
+
+        <div v-else>
+            <div v-if="showConfirmationPopup">
+                <PopupConfirmDelete
+                    @abortDelete="cancelDelete"
+                    @confirmDelete="deletePost"
+                />
+            </div>
+
+            <div class="header">Post #{{ post.id }}</div>
+            <PostHeader :post="post" />
+            <PostBodyFull :post="post" />
+            <PostFooter
+                :post="post"
+                @confirmDelete="(postId) => askForConfirmation(postId)"
+            />
+        </div>
+    </div>
 </template>
 
 <style scoped>
