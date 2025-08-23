@@ -4,12 +4,24 @@ import type { Post } from '../types/Post'
 defineProps<{
     post: Post,
 }>()
+
+function cropTextIfOverlong(text: string): string {
+    if (postIsOverlong(text)) {
+        const textLength = text.length
+        return `${text.slice(0, textLength - 3)}...`
+    }
+    return text
+}
+
+function postIsOverlong(text: string): boolean {
+    return text.length > 200
+}
 </script>
 
 <template>
     <div class="post-body">
-        {{ post.text }}
-        <div class="font-s mt-m align-r">
+        {{ cropTextIfOverlong(post.text) }}
+        <div v-if="postIsOverlong(post.text)" class="font-s mt-m align-r">
             <NuxtLink :to="`/posts/show/${post.id}`">Read full post</NuxtLink>
         </div>
     </div>

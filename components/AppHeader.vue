@@ -55,7 +55,7 @@ function logout() {
 	top: 0.5rem;
 	width: 100%;
 	margin: 0 auto;
-	max-width: 1000px;
+	max-width: 800px;
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
 	grid-template-rows: 1fr;
