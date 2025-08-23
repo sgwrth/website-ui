@@ -3,22 +3,27 @@
 
 <template>
 	<div class="main">
-		<div class="header">Tech stack</div>
-		<li>AWS</li>
-		<li>Bash</li>
-		<li>Curl</li>
-		<li>Docker</li>
-		<li>Gimp</li>
-		<li>Git</li>
+		<div class="header">Tech Stack</div>
+
+        <div>Main</div>
 		<li>Laravel</li>
 		<li>MariaDB</li>
-		<li>Neovim</li>
-		<li>Nginx</li>
 		<li>Nuxt</li>
-		<li>SSH</li>
+
+        <div class="mt-m">Dev</div>
+		<li>Bash</li>
+        <li>Brave</li>
+		<li>Curl</li>
+		<li>Git</li>
+		<li>Neovim</li>
 		<li>Tmux</li>
-		<li>Ubuntu</li>
 		<li>WSL</li>
+
+        <div class="mt-m">Server</div>
+		<li>AWS</li>
+		<li>Docker</li>
+		<li>Nginx</li>
+		<li>Ubuntu</li>
 	</div>
 </template>
 

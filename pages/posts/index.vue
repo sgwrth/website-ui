@@ -31,7 +31,7 @@ onMounted(async () => {
 
 <template>
 	<div class="main">
-		<div class="header">The Posts</div>
+		<div class="header">Blog</div>
 
         <div v-if="showConfirmationPopup">
             <PopupConfirmDelete

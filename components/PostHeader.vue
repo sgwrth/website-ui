@@ -18,8 +18,6 @@ defineProps<{
 	justify-content: space-between;
 	background-color: #20151a;
 	padding: 0.5rem;
-	border-top: solid 0.15rem #000000;
-	border-left: solid 0.15rem #000000;
-	border-right: solid 0.15rem #000000;
+    border-top: solid 0.15rem #000;
 }
 </style>

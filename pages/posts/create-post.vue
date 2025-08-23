@@ -20,7 +20,7 @@ async function submitPost() {
             title: postData.value.title,
             text: postData.value.text,
         })
-        const response = await fetch(`${runtimeConfig.public.backendUrl}/posts`, {
+        const response = await fetch(`${runtimeConfig.public.apiUrl}/posts`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${store.token}`,
