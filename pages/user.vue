@@ -50,12 +50,12 @@ function toVerboseDate(dateString, months, weekdays) {
 }
 
 onMounted(async () => {
-	const response: User[] = await get<User[]>('me')
-	user.value.username = response[0].username
-	user.value.email = response[0].email
-	user.value.role = response[0].role
-	user.value.created = response[0].created
-	user.value.updated = response[0].updated
+	const response: User = await get<User>('me')
+	user.value.username = response.username
+	user.value.email = response.email
+	user.value.role = response.role
+	user.value.created = response.created
+	user.value.updated = response.updated
 	userDataLoaded.value = true
 })
 </script>

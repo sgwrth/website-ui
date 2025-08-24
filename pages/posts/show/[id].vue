@@ -38,18 +38,18 @@ async function deletePost() {
 
 onMounted(async () => {
 	try {
-		const response: Post[]
+		const response: Post
                 = await $fetch(`${runtimeConfig.public.apiUrl}/posts/${route.id}`, {
             method: 'GET',
             headers: { Authorization: `Bearer ${store.token}` },
         })
-        post.value.id = response[0].id
-		post.value.title = response[0].title
-		post.value.text = response[0].text
-		post.value.author = response[0].author
-		post.value.authorEmail = response[0].authorEmail
-		post.value.created = response[0].created
-		post.value.updated = response[0].updated
+        post.value.id = response.id
+		post.value.title = response.title
+		post.value.text = response.text
+		post.value.author = response.author
+		post.value.authorEmail = response.authorEmail
+		post.value.created = response.created
+		post.value.updated = response.updated
 	} catch (error) {
 		console.error(error);
 		requestHasFailed.value = true;

@@ -4,8 +4,11 @@ import type { PostCreateOrUpdateDto } from '../../../types/PostCreateOrUpdateDto
 
 const runtimeConfig = useRuntimeConfig()
 const store = useUserStore()
+const get = useGetRequest()
+
 const route = useRoute().params
 const router = useRouter()
+
 const unauthorized: Ref<boolean> = ref(false)
 const putData: Ref<PostCreateOrUpdateDto> = ref({
 	title: '',
@@ -41,14 +44,9 @@ async function editPost() {
 }
 
 onMounted(async () => {
-	const response: Post[] = await $fetch(`${runtimeConfig.public.apiUrl}/posts/${route.id}`, {
-		method: 'GET',
-		headers: {
-			Authorization: `Bearer ${store.token}`,
-		},
-	})
-	putData.value.title = response[0].title
-	putData.value.text = response[0].text
+    const post = await get<Post>(`posts/${route.id}`)
+	putData.value.title = post.title
+	putData.value.text = post.text
 });
 </script>
 
