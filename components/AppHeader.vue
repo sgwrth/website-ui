@@ -11,11 +11,15 @@ function logout() {
 
 <template>
 	<div class="main">
-		<div><img class="responsive-img" src="../assets/jpg/homepage3.jpg" /></div>
+		<div class="header-bg">
+            <!-- <img class="responsive-img" src="../assets/jpg/homepage3.jpg" /> -->
+        </div>
 		<div class="grid">
+
+            <!-- Top row: -->
+
 			<div class="cell"><NuxtLink to="/">Home</NuxtLink></div>
 			<div class="cell"><NuxtLink to="/posts">Posts</NuxtLink></div>
-			<div class="cell"><NuxtLink to="/links">Links</NuxtLink></div>
 
             <template v-if="store.username !== ''">
                 <div class="cell">
@@ -41,6 +45,17 @@ function logout() {
                 </div>
 			</template>
 
+            <!-- Bottom row: -->
+
+            <div class="cell">
+                <NuxtLink to="/connect-four">Play</NuxtLink>
+            </div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+			<div class="cell">
+                <NuxtLink to="/links">Links</NuxtLink>
+            </div>
+
 		</div>
 	</div>
 </template>
@@ -49,16 +64,18 @@ function logout() {
 .cell {
 	text-align: center;
 	vertical-align: bottom;
+    padding: 0.25rem 0.0rem;
 }
 .grid {
-	position: absolute;
-	top: 0.5rem;
 	width: 100%;
-	margin: 0 auto;
+	margin: 0.0rem auto 1.0rem auto;
 	max-width: 800px;
 	display: grid;
-	grid-template-columns: repeat(5, 1fr);
-	grid-template-rows: 1fr;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: 2fr;
+}
+.header-bg {
+    background-color: #000;
 }
 .responsive-img {
 	width: 100%;
