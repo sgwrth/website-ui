@@ -48,7 +48,7 @@ function logout() {
             <!-- Bottom row: -->
 
             <div class="cell">
-                <NuxtLink to="/connect-four">Play</NuxtLink>
+                <NuxtLink to="/connect-four">Connect 4</NuxtLink>
             </div>
             <div class="cell"></div>
             <div class="cell"></div>

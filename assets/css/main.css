@@ -42,7 +42,8 @@ h1 {
 input {
     border: 1px solid #888;
     border-radius: 0px;
-    padding: 0.4rem;
+    padding: 0.05rem;
+    padding-left: 0.2rem;
     color: #e0e0d0;
     font-size: 13pt;
     font-family: "Calibri";
@@ -88,8 +89,21 @@ textarea {
     margin-bottom: 0.5rem;
 }
 
+.link:hover {
+    color: #d0a0a0;
+    cursor: pointer;
+}
+
 .mb-m {
     margin-bottom: 1.0rem;
+}
+
+.ml-m {
+    margin-left: 1.0rem;
+}
+
+.mt-l {
+    margin-top: 2.0rem;
 }
 
 .mt-m {

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 const postConnectFour = usePostConnectFour()
 
+const playerNameInput = ref()
+const playerName = ref()
 const gameData = ref()
 const board: Ref<Array<Array<string>>> = ref(
     [' ', ' ', ' ', ' ', ' ', ' ', ' '],
@@ -13,6 +15,10 @@ const board: Ref<Array<Array<string>>> = ref(
 const gameWon = ref(false)
 const msg = ref()
 
+function assignPlayerName() {
+    playerName.value = playerNameInput.value
+}
+
 function convertBoardSymbol(symbol: string): string {
     switch (symbol) {
     case ' ':
@@ -22,7 +28,7 @@ function convertBoardSymbol(symbol: string): string {
     case 'O':
         return 'O'
     default:
-        return '?'
+        return ' '
     }
 }
 
@@ -47,11 +53,15 @@ function setColor(symbol: string): string {
     }
 }
 
-onMounted(async () => {
+async function initGame() {
     gameData.value = await postConnectFour({'message': 'hi'})
     board.value = gameData.value.board
     gameWon.value = gameData.value.game_won
     msg.value = gameData.value.msg
+}
+
+onMounted(async () => {
+    initGame()
 })
 </script>
 
@@ -61,7 +71,15 @@ onMounted(async () => {
             Connect Four
         </div>
 
-        <div v-if="!gameWon" class="board">
+        <div v-if="playerName === undefined">
+            <div><label for="enterName">Enter your name</label></div>
+            <div class="mb-m">
+                <input v-model="playerNameInput" id="enterName" />
+                <button class="ml-m" v-on:click="assignPlayerName">Send</button>
+            </div>
+        </div>
+
+        <div v-if="!gameWon && playerName !== undefined" class="board">
             <!-- Loop is 1-indexed, hence the '[i - 1]'. -->
             <div class="col1" v-on:click="makeMove(0)">
                 <div v-for="i in 6"
@@ -223,8 +241,26 @@ onMounted(async () => {
             </div>
         </div>
 
-        <div class="mt-m" v-if="gameWon">
-            {{ `${msg.toUpperCase()}!` }}
+        <div v-if="gameWon" class="mt-m">
+            <div v-if="msg === 'player has won'">
+                {{ `Good job, ${playerName}, you have won!` }}
+            </div>
+            <div v-else>
+                {{ `Sorry, ${playerName}, you have lost!&nbsp;&nbsp;Better
+                luck next time!` }}
+            </div>
+            <button class="mt-m" v-on:click="initGame">Play again</button>
+        </div>
+
+        <div class="header mt-l">About this</div>
+        <div class="paragraph">
+            The game is running on a separate Python WSGI server.&nbsp;&nbsp;
+            Originally conceived as a game for the terminal, I added the option
+            to play it via HTTP requests.&nbsp;&nbsp;The entire game data (the
+            board, the number of moves left, etc.) is being sent back and forth
+            with each turn.&nbsp;&nbsp;Backend and Frontend process the game data
+            and return an updated board.&nbsp;&nbsp;Therefore, the game is entirely
+            stateless on both ends.
         </div>
 
     </div>
